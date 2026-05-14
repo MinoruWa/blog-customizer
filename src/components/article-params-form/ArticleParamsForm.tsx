@@ -12,6 +12,9 @@ import {
 } from 'src/constants/articleProps';
 import { useState, useEffect, useRef } from 'react';
 import { Select } from 'src/ui/select';
+import { Separator } from 'src/ui/separator';
+import { RadioGroup } from 'src/ui/radio-group';
+import { Text } from 'src/ui/text';
 
 import styles from './ArticleParamsForm.module.scss';
 
@@ -66,6 +69,9 @@ export const ArticleParamsForm = ({
 					className={styles.form}
 					onSubmit={handleSubmit}
 					onReset={handleReset}>
+					<Text size={31} weight={800} uppercase>
+						Задайте параметры
+					</Text>
 					<Select
 						title='Шрифт'
 						selected={formState.fontFamilyOption}
@@ -77,10 +83,11 @@ export const ArticleParamsForm = ({
 							})
 						}
 					/>
-					<Select
+					<RadioGroup
 						title='Размер шрифта'
-						selected={formState.fontSizeOption}
+						name='font-size'
 						options={fontSizeOptions}
+						selected={formState.fontSizeOption}
 						onChange={(option) =>
 							setFormState({
 								...formState,
@@ -99,6 +106,7 @@ export const ArticleParamsForm = ({
 							})
 						}
 					/>
+					<Separator />
 					<Select
 						title='Цвет фона'
 						selected={formState.backgroundColor}
