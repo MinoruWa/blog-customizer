@@ -19,19 +19,16 @@ import { Text } from 'src/ui/text';
 import styles from './ArticleParamsForm.module.scss';
 
 type ArticleParamsFormProps = {
-	isOpen: boolean;
-	setIsOpen: (value: boolean) => void;
 	articleState: ArticleStateType;
 	setArticleState: (value: ArticleStateType) => void;
 };
 
 export const ArticleParamsForm = ({
-	isOpen,
-	setIsOpen,
 	articleState,
 	setArticleState,
 }: ArticleParamsFormProps) => {
 	const [formState, setFormState] = useState<ArticleStateType>(articleState);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setArticleState(formState);
@@ -47,24 +44,27 @@ export const ArticleParamsForm = ({
 				sidebarRef.current &&
 				!sidebarRef.current.contains(event.target as Node)
 			) {
-				setIsOpen(false);
+				setIsMenuOpen(false);
 			}
 		};
 
-		if (isOpen) {
+		if (isMenuOpen) {
 			document.addEventListener('mousedown', handleClickOutside);
 		}
 
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, [isOpen, setIsOpen]);
+	}, [isMenuOpen, setIsMenuOpen]);
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+			<ArrowButton
+				isOpen={isMenuOpen}
+				onClick={() => setIsMenuOpen(!isMenuOpen)}
+			/>
 			<aside
 				ref={sidebarRef}
-				className={clsx(styles.container, isOpen && styles.container_open)}>
+				className={clsx(styles.container, isMenuOpen && styles.container_open)}>
 				<form
 					className={styles.form}
 					onSubmit={handleSubmit}

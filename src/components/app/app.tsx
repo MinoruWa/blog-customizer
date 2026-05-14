@@ -11,7 +11,6 @@ import {
 import styles from './app.module.scss';
 
 export const App = () => {
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [articleState, setArticleState] =
 		useState<ArticleStateType>(defaultArticleState);
 	return (
@@ -27,8 +26,6 @@ export const App = () => {
 				} as CSSProperties
 			}>
 			<ArticleParamsForm
-				isOpen={isMenuOpen}
-				setIsOpen={setIsMenuOpen}
 				articleState={articleState}
 				setArticleState={setArticleState}
 			/>
